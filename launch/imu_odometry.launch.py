@@ -15,15 +15,18 @@ def generate_launch_description():
     
     pkg_dir = get_package_share_directory("imu_odometry")
 
+    declare_arg_ns = DeclareLaunchArgument('namespace',
+        default_value= "human",
+        description='namespace')
     # Create Launch configuratios
-    #namespace = LaunchConfiguration('namespace')
+    namespace = LaunchConfiguration('namespace',default="human")
         
     imu_node = Node(
             package='imu_odometry',
             # namespace='turtlesim1',
             executable='exec_py',
             name='imu_odometry_publisher',
-            #namespace=namespace,
+            namespace=namespace,
             output="screen",
             parameters=[  ParameterFile(os.path.join(pkg_dir, 'config', 'parameters.yaml'), allow_substs=True)],
             #prefix=['xterm -e gdb -ex run --args']
@@ -34,6 +37,7 @@ def generate_launch_description():
    
     
     ld = LaunchDescription()
+    ld.add_action(declare_arg_ns)
     ld.add_action(imu_node)
 
     

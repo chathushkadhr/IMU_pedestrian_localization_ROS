@@ -1,4 +1,4 @@
-imu_odometry_publisher:
+/$(var namespace)/imu_odometry_publisher:
     ros__parameters:
         imu_topic: footIMU/imu
         #imu_topic: waistIMU/IMU
